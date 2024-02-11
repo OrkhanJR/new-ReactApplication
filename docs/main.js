@@ -10,7 +10,7 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _components_Form_Form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Form/Form */ "./src/components/Form/Form.jsx");
+/* harmony import */ var _components_Form_Form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Form/Form */ "./src/components/Form/Form.tsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 
@@ -54,29 +54,33 @@ var App = function App() {
 
 /***/ }),
 
-/***/ "./src/components/Form/Form.jsx":
+/***/ "./src/components/Form/Form.tsx":
 /*!**************************************!*\
-  !*** ./src/components/Form/Form.jsx ***!
+  !*** ./src/components/Form/Form.tsx ***!
   \**************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormInput_FormInput__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormInput/FormInput */ "./src/components/Form/FormInput/FormInput.tsx");
-/* harmony import */ var _form_module_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form.module.css */ "./src/components/Form/form.module.css");
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Form_form_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Form/form.module.scss */ "./src/components/Form/form.module.scss");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 
 var Form = function Form(_ref) {
   var onSubmit = _ref.onSubmit,
     inputsData = _ref.inputsData;
+  var formRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    var form = e.target;
-    var formData = new FormData(form);
+    if (formRef.current === null) return;
+    var formData = new FormData(formRef.current);
     onSubmit(formData);
   };
   var inputs = inputsData.map(function (inputData) {
-    return /*#__PURE__*/React.createElement(_FormInput_FormInput__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_FormInput_FormInput__WEBPACK_IMPORTED_MODULE_0__["default"], {
       labelText: inputData.labelText,
       name: inputData.name,
       type: inputData.type,
@@ -84,10 +88,13 @@ var Form = function Form(_ref) {
       key: inputData.key
     });
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", {
-    onSubmit: handleSubmit,
-    className: _form_module_css__WEBPACK_IMPORTED_MODULE_1__["default"].form
-  }, /*#__PURE__*/React.createElement("legend", null, "Full name"), inputs, /*#__PURE__*/React.createElement("button", null, "Submit")));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement((react__WEBPACK_IMPORTED_MODULE_2___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("form", {
+    ref: formRef,
+    className: _Form_form_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].form
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("legend", null, "Full name"), inputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("button", {
+    type: "submit",
+    onClick: handleSubmit
+  }, "Submit")));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Form);
 
@@ -103,7 +110,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Input_Input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Input/Input */ "./src/components/Input/Input.tsx");
+
+
 
 
 var FormInput = function FormInput(_ref) {
@@ -112,24 +121,26 @@ var FormInput = function FormInput(_ref) {
     type = _ref$type === void 0 ? "text" : _ref$type,
     name = _ref.name,
     pattern = _ref.pattern;
+  var inputRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
   var id = (0,react__WEBPACK_IMPORTED_MODULE_1__.useId)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     isValid = _useState2[0],
     setIsValid = _useState2[1];
   var handleInput = function handleInput(e) {
+    var _inputRef$current;
     var regexp = new RegExp("^" + pattern + "$", "ig");
-    var test = regexp.test(e.target.value);
-    setIsValid(test);
+    var isValidValue = regexp.test(inputRef.current.value);
+    (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 || _inputRef$current.dataset["is-valid"];
+    setIsValid(isValidValue);
   };
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("label", {
     htmlFor: id
-  }, labelText), /*#__PURE__*/React.createElement("input", {
+  }, labelText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Input_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    ref: inputRef,
     id: id,
     type: type,
     name: name,
-    pattern: pattern,
-    "data-is-valid": isValid,
     onInput: handleInput
   }));
 };
@@ -139,10 +150,38 @@ var FormInput = function FormInput(_ref) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/form.module.css":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/form.module.css ***!
-  \************************************************************************************************************************************************************************************************/
+/***/ "./src/components/Input/Input.tsx":
+/*!****************************************!*\
+  !*** ./src/components/Input/Input.tsx ***!
+  \****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var Input = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref, ref) {
+  var id = _ref.id,
+    type = _ref.type,
+    name = _ref.name,
+    onInput = _ref.onInput;
+  return /*#__PURE__*/React.createElement("input", {
+    type: type,
+    id: id,
+    name: name,
+    ref: ref,
+    onInput: onInput
+  });
+});
+/* harmony default export */ __webpack_exports__["default"] = (Input);
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/form.module.scss":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/form.module.scss ***!
+  \*************************************************************************************************************************************************************************************************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -155,10 +194,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".src-components-Form-form-module__form-input--tfEFM0Fp {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n}\n\ninput[data-is-valid=true] {\n  background-color: lightgreen;\n}\n\ninput[data-is-valid=false] {\n  background-color: pink;\n}", "",{"version":3,"sources":["webpack://./src/components/Form/form.module.css"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,sBAAA;EACA,QAAA;AACJ;;AAEA;EACI,4BAAA;AACJ;;AAEA;EACI,sBAAA;AACJ","sourcesContent":[".form-input {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 5px;\r\n}\r\n\r\ninput[data-is-valid=\"true\"] {\r\n    background-color: lightgreen;\r\n}\r\n\r\ninput[data-is-valid=\"false\"] {\r\n    background-color: pink;\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".src-components-Form-form-module__form-input--HbcuTgEu {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n}\n\ninput[data-is-valid=true] {\n  background-color: lightgreen;\n}\n\ninput[data-is-valid=false] {\n  background-color: pink;\n}", "",{"version":3,"sources":["webpack://./src/components/Form/form.module.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,sBAAA;EACA,QAAA;AACJ;;AAEA;EACI,4BAAA;AACJ;;AAEA;EACI,sBAAA;AACJ","sourcesContent":[".form-input {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 5px;\r\n}\r\n\r\ninput[data-is-valid=\"true\"] {\r\n    background-color: lightgreen;\r\n}\r\n\r\ninput[data-is-valid=\"false\"] {\r\n    background-color: pink;\r\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
-	"form-input": "src-components-Form-form-module__form-input--tfEFM0Fp"
+	"form-input": "src-components-Form-form-module__form-input--HbcuTgEu"
 };
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -33656,10 +33695,10 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./src/components/Form/form.module.css":
-/*!*********************************************!*\
-  !*** ./src/components/Form/form.module.css ***!
-  \*********************************************/
+/***/ "./src/components/Form/form.module.scss":
+/*!**********************************************!*\
+  !*** ./src/components/Form/form.module.scss ***!
+  \**********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -33675,7 +33714,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../../node_modules/postcss-loader/dist/cjs.js!../../../node_modules/sass-loader/dist/cjs.js!./form.module.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/form.module.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../../node_modules/postcss-loader/dist/cjs.js!../../../node_modules/sass-loader/dist/cjs.js!./form.module.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Form/form.module.scss");
 
       
       
@@ -33697,12 +33736,12 @@ options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWi
 options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
 options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
 
 
 
 
-       /* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+       /* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_use_1_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_form_module_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
