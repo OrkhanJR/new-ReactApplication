@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Div from "../Div/Div";
 import ButtonMinus from "./ButtonMinus/ButtonMinus";
 import ButtonPlus from "./ButtonPlus/ButtonPlus";
 
 const Counter = () => {
   const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    console.log("hello from useEffect");
+  });
+  
+  useEffect(() => {
+    console.log("hello from useEffect with array");
+  }, []);
+
+  useEffect(() => {
+    console.log("hello from useEffect with array and counter");
+  }, [value]);
+
+ 
 
   return (
     <>

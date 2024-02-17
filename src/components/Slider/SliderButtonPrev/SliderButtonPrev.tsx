@@ -1,11 +1,19 @@
+import { ImageDataType } from "../ImagesData/ImagesData";
+
+type SliderButtonPrevProps = {
+  setCurrentImageIndex: React.Dispatch<React.SetStateAction<number>>;
+  currentImageIndex: number;
+  imagesData: ImageDataType[];
+};
+
 const SliderButtonPrev = ({
   setCurrentImageIndex,
   currentImageIndex,
-  ImagesData,
-}) => {
+  imagesData,
+}: SliderButtonPrevProps) => {
   const prevImage = () => {
     if (currentImageIndex === 0) {
-      setCurrentImageIndex(ImagesData.length - 1);
+      setCurrentImageIndex(imagesData.length - 1);
     } else {
       setCurrentImageIndex(currentImageIndex - 1);
     }
