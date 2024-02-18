@@ -1,12 +1,13 @@
 import Button from "../../Button/Button";
+import React, { useContext } from "react";
+import { SetValueContext, ValueContext } from "../Counter";
 
-type ButtonMinusProps = {
-  setValue: React.Dispatch<React.SetStateAction<number>>;
-};
+const ButtonMinus = () => {
+  const setValue = useContext(SetValueContext)!;
+  const value = useContext(ValueContext);
 
-const ButtonMinus = ({ setValue }: ButtonMinusProps) => {
   const decrease = () => {
-    setValue((prevValue) => prevValue - 1);
+    setValue(value - 1);
   };
   return <Button onClick={decrease}>Minus</Button>;
 };

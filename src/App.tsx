@@ -55,9 +55,7 @@ const App = () => {
 
   return (
     <>
-      
       <Counter />
-  
     </>
   );
 };

@@ -1,6 +1,5 @@
 import { Children } from "../Types/Children";
 
-
 type DivProps = {
   className?: string;
   children: Children;

@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
-import Div from "../Div/Div";
+import React, {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 import ButtonMinus from "./ButtonMinus/ButtonMinus";
 import ButtonPlus from "./ButtonPlus/ButtonPlus";
+import Display from "./Display/Display";
+
+const INITIAL_STATE = 0;
+
+export const ValueContext = createContext<number>(INITIAL_STATE);
+export const SetValueContext = createContext<Dispatch<
+  SetStateAction<number>
+> | null>(null);
 
 const Counter = () => {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    console.log("hello from useEffect");
-  });
-  
-  useEffect(() => {
-    console.log("hello from useEffect with array");
-  }, []);
-
-  useEffect(() => {
-    console.log("hello from useEffect with array and counter");
-  }, [value]);
-
- 
+  const [value, setValue] = useState(INITIAL_STATE);
 
   return (
     <>
-      <ButtonMinus setValue={setValue} />
-      <Div>{value}</Div>
-      <ButtonPlus setValue={setValue} />
+      <SetValueContext.Provider value={setValue}>
+        <ValueContext.Provider value={value}>
+          <ButtonMinus />
+          <Display />
+          <ButtonPlus />
+        </ValueContext.Provider>
+      </SetValueContext.Provider>
     </>
   );
 };
