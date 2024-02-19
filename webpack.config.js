@@ -21,6 +21,7 @@ module.exports = (env, argv) => {
         return `${filepath}/[name].[hash][ext][query]`;
       },
       clean: true,
+      publicPath: "/",
     },
     performance: {
       hints: false,
@@ -55,7 +56,7 @@ module.exports = (env, argv) => {
           },
         },
         {
-          test: /\.s?css$/,
+          test: /\.module\.s?css$/,
           exclude: /node_modules/,
           use: [
             "style-loader",
@@ -71,32 +72,37 @@ module.exports = (env, argv) => {
             "sass-loader",
           ],
         },
+        {
+          test: /\.s?css$/,
+          exclude: /(node_modules|(\.module\.s?css$))/,
+          use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+        },
       ],
     },
     plugins: [
       new HTMLWebpackPlugin({
         template: "./public/index.html",
       }),
-      //   new HTMLWebpackPlugin({
-      //     template: "./public/404.html",
-      //     filename: "404.html",
-      //     inject: false,
-      //   }),
+      // new HTMLWebpackPlugin({
+      // 	template: './public/404.html',
+      // 	filename: '404.html',
+      // 	inject: false,
+      // }),
       new ProvidePlugin({
         React: "react",
       }),
-      new DefinePlugin({
-        PROJECT_NAME: `"${projectName}"`,
-        ASSETS_PATH: `"${projectName}/assets"`,
-      }),
-      //   new CopyWebpackPlugin({
-      //     patterns: [
-      //       {
-      //         from: "./public/assets/images",
-      //         to: "assets/images",
-      //       },
-      //     ],
-      //   }),
+      // new DefinePlugin({
+      // 	PROJECT_NAME: `"${projectName}"`,
+      // 	ASSETS_PATH: `"${projectName}/assets"`,
+      // }),
+      // new CopyWebpackPlugin({
+      // 	patterns: [
+      // 		{
+      // 			from: './public/assets/images',
+      // 			to: 'assets/images'
+      // 		}
+      // 	]
+      // })
     ],
   };
 };

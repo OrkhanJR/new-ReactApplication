@@ -1,7 +1,7 @@
 // import { useState } from "react";
 // import Form from "./components/Form/Form";
 import React from "react";
-import Counter from "./components/Counter/Counter";
+// import Counter from "./components/Counter/Counter";
 // import NoPortalExample from "./components/Modals/NoPortalExample/NoPortalExample";
 // import PortalExample from "./components/Modals/PortalExample/PortalExample";
 // import styles from  "./App.module.css";
@@ -55,7 +55,7 @@ const App = () => {
 
   return (
     <>
-      <Counter />
+        <div>Hello world from app</div>
     </>
   );
 };
