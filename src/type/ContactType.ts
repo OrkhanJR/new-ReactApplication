@@ -1,5 +1,6 @@
 type ContactType = {
   id?: string;
+  createdAt?: number;
   first?: string;
   last?: string;
   avatar?: string;
