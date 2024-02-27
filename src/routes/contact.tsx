@@ -27,7 +27,7 @@ const Contact = () => {
             </>
           ) : (
             <i>No Name</i>
-          )}{" "}
+          )}{" npm run"}
           <Favorite contact={contact} />
         </h1>
 

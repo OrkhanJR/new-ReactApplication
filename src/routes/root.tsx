@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link, useLoaderData, Form } from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form,  redirect, } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 import ContactType from "src/type/ContactType";
 
@@ -8,9 +8,9 @@ export async function action(): Promise<{ contact: ContactType }> {
   return { contact };
 }
 
-export async function loader(): Promise<{contacts: ContactType[]}> {
-  const contacts = await getContacts();
-  return { contacts };
+export async function loader(): Promise<any> {
+  const contact = await getContacts();
+  return redirect(`/contacts/${contact.id}/edit`);
 }
 
 const Root = () => {
